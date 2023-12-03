@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Lollapalooza Argentina 2024 | 15, 16 y 17 de marzo</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/skeleton.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <link rel="icon" type="image/ico" href="img/logo1-removebg-preview.png">
+    
+</head>
+<body>
+    <header>
+        <div id="logofechas">
+                <img src="img/header.png" id="logo">
+                <b>
+                    <p id="fechas">15 , 16 y 17 de Marzo <br>
+                        Hipódromo de San Isidro
+                    </p>
+                </b>
+                <ul>
+                    <li class="submenu">
+                            <button id="img-carrito">TICKETS</button>
+                            <div id="carrito">
+                                    <table id="lista-carrito" class="u-full-width">
+                                        <thead>
+                                            <tr>
+                                                <th>Imagen</th>
+                                                <th>Nombre</th>
+                                                <th>Precio</th>
+                                                <th>Cantidad</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                    <a href="#" id="vaciar-carrito" class="button u-full-width">Vaciar Carrito</a>
+                            </div>
+                    </li>
+                </ul>
+            </div>
+    </header>
+
+
+    <div id="hero">
+        <div class="container">
+            <div class="row">
+                    <div class="six columns">
+                        <div class="contenido-hero">
+                                <h2> <b> Disfruta de los mejores conciertos</b> </h2>
+                                <form action="#" id="busqueda" method="post" class="formulario">
+                                    <input class="u-full-width" type="text" placeholder="Buscar conciertos" id="buscador">
+                                    <input type="submit" id="submit-buscador" class="submit-buscador">
+                                </form>
+                        </div>
+                    </div>
+            </div> 
+        </div>
+    </div>
+
+    <div id="lista-cursos" class="container">
+        <h1 id="encabezado" class="encabezado"> <b>Conciertos </b></h1>
+    </div>  
+
+    <footer id="footer" class="footer">
+        <div class="container">
+            <div class="row">
+                    <div class="four columns">
+                            <nav id="secundaria" class="menu">
+                                <a class="enlace" href="#">&copy;<b>Lollapalooza</b>LLC</a>
+                              
+                            </nav>
+                    </div>
+            </div>
+        </div>
+    </footer>
+    <script src="js/db.js"></script>
+    <script src="js/app.js"></script>
+    
+
+</body>
+</html>
