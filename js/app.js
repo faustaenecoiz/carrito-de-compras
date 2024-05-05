@@ -5,6 +5,7 @@ const carrito = document.querySelector('#carrito');
 const listaCursos = document.querySelector('#lista-cursos');
 const vaciarCarrito = document.querySelector('#vaciar-carrito');
 const contenedorCarrito = document.querySelector('tbody');
+const buscador = document.getElementById('miSearch');
 let articulosCarrito=[];
 
 // crear un array donde voy a poner todos los cursos, en principio va a estar vacio.
@@ -100,6 +101,19 @@ function cargarEventos(){
     document.addEventListener('DOMContentLoaded',() => {
         mostrarConciertos()
     });
+    buscador.addEventListener('keypress', (e) =>{
+    if (e.target.matches('#miSearch')) {
+        document.querySelectorAll('.card').forEach(concierto =>{
+            if(concierto.textContent.toLowerCase().includes(e.target.value.toLowerCase())){
+                concierto.classList.remove('filtro')
+            }
+            else{
+                concierto.classList.add('filtro')
+            }
+
+        });
+    };
+    });
    
 }
 //muestra el carrito de compras en el html 
@@ -112,7 +126,7 @@ function carritoHTML(){
         //crear el tr 
         const row= document.createElement('tr');
         row.innerHTML=`
-        <td><img src='${curso.imagen}'heigth=100px width=150px> </td>
+        <td><img src='${imagen}'heigth=100px width=150px> </td>
         <td class='blanco'>${titulo}</td>
         <td class='blanco'>${precio}</td>
         <td class='blanco'>${cantidad}</td>
@@ -231,7 +245,7 @@ function crearCard (concierto){
 
  
     contendorCard.classList = 'four columns';
-    cardHTML.classList = 'card';
+    cardHTML.classList = ('card');
     cardHTML.id = id
     infoCard.classList = 'info-card';
     precioHTML.classList = 'precio';
@@ -278,4 +292,5 @@ function mostrarConciertos() {
         
     })
    
-    }
+}
+
