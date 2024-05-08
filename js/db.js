@@ -6,7 +6,7 @@ const conciertos = [
         precio : '$5000',
         lugar : "Campo 1 ",
         oferta : 2000,
-        imagen : "img/concierto1.jpg",
+        imagen : "img/concierto4.jpg",
         id : 1 ,
         stock : 20
     },
@@ -15,7 +15,7 @@ const conciertos = [
         precio : '$3000',
         lugar : "Platea alta ",
         oferta : 1000,
-        imagen : "img/concierto2.jpg",
+        imagen : "img/concierto4.jpg",
         id : 2 ,
         stock : 9
     },
@@ -24,7 +24,7 @@ const conciertos = [
         precio : '$2500',
         lugar : "Gradas",
         oferta : 900,
-        imagen : "img/concierto3.jpg",
+        imagen : "img/concierto4.jpg",
         id : 3 ,
         stock : 112
     },
@@ -42,7 +42,7 @@ const conciertos = [
         precio : '$3000',
         lugar : "Campo 1 ",
         oferta : 1000,
-        imagen : "img/concierto5.jpg",
+        imagen : "img/concierto4.jpg",
         id : 5 ,
         stock : 67 
     },
@@ -51,7 +51,7 @@ const conciertos = [
         precio : '$2500',
         lugar : "Campo 5 ",
         oferta : 900,
-        imagen : "img/concierto6.jpg",
+        imagen : "img/concierto4.jpg",
         id : 6 ,
         stock : 2
     },
@@ -60,7 +60,7 @@ const conciertos = [
         precio : '$5000',
         lugar : "VIP",
         oferta : 2000,
-        imagen : "img/concierto7.jpg",
+        imagen : "img/concierto4.jpg",
         id : 7 ,
         stock : 45 
     },
@@ -69,7 +69,7 @@ const conciertos = [
         precio : '$3000',
         lugar : "gradas ",
         oferta : 1000,
-        imagen : "img/concierto8.jpg",
+        imagen : "img/concierto4.jpg",
         id : 8 ,
         stock : 89
     },
@@ -78,7 +78,7 @@ const conciertos = [
         precio : '$2500',
         lugar : "VIP",
         oferta : 900,
-        imagen : "img/concierto9.jpg",
+        imagen : "img/concierto4.jpg",
         id : 9 ,
         stock : 78
     },
@@ -87,7 +87,7 @@ const conciertos = [
         precio : '$5000',
         lugar : "Campo 5",
         oferta : 2000,
-        imagen : "img/concierto10.jpg",
+        imagen : "img/concierto4.jpg",
         id : 10 ,
         stock : 67
     },
@@ -96,7 +96,7 @@ const conciertos = [
         precio : '$3000',
         lugar : "Campo 7",
         oferta : 1000,
-        imagen : "img/concierto11.jpg",
+        imagen : "img/concierto4.jpg",
         id : 11 ,
         stock : 200
     },
@@ -105,7 +105,7 @@ const conciertos = [
         precio : '$2500',
         lugar : "Campo 3 ",
         oferta : 900,
-        imagen : "img/concierto12.jpg",
+        imagen : "img/concierto4.jpg",
         id : 12 ,
         stock : 59 
     },
