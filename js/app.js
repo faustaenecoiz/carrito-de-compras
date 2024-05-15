@@ -1,118 +1,78 @@
-//agregar, eliminar y vaciar carrito 
-//cuando hago click en alguna parte del carrito compro un elemento 
 //variables 
 const carrito = document.querySelector('#carrito');
 const listaCursos = document.querySelector('#lista-cursos');
 const vaciarCarrito = document.querySelector('#vaciar-carrito');
 const contenedorCarrito = document.querySelector('tbody');
-const buscador = document.getElementById('miSearch');
 let articulosCarrito=[];
 
-// crear un array donde voy a poner todos los cursos, en principio va a estar vacio.
 const agregarCurso = (e) =>{
     if(e.target.classList.contains('agregar-carrito')){
         e.preventDefault()
-    
         const cursoSeleccionado = e.target.parentElement.parentElement;
         LeerDatos(cursoSeleccionado);
     }
 } 
-
 const LeerDatos = (curso) =>{
     //acceder a los elementos del div . Lee el contenido del html y extrae la informacion del curso 
     const infoCurso={
-        //curso .queryselector porque hay que seleccionar desde el div ya seleccionado 
     imagen: curso.querySelector('img').src,
     titulo :curso.querySelector('h4').textContent,
     precio:curso.querySelector('span').textContent,
     id:curso.querySelector('a').getAttribute('data-id'),
-    cantidad : 1,
+    cantidad: 1,
     }
-    //reutilizo esta funcion que  lee el contenido del curso para modificar el stock 
-    //selecciono el stock desde la base de datos 
-    //con info curso obtrendria el id del concierto de la base de datos 
-    //[infocurso.id-1] porque si el id es 1 empieza en 0 porque es un array 
+    //Se reutiliza la funcion info curso ya que contiene la información, en este caso el id , que voy a usar a la hora de verificar el stock
+    //[infocurso.id-1] porque si el id es 1 empieza en 0 porque es un array , el id sería como el length del array
     const stock = conciertos [infoCurso.id-1].stock
-    //si no hay stock me muestra un alert que dice no stock 
-    if (stock===1) {
+    //La condición es 1 y no 0 , ya que al poner 0 te permite comprar una entrada más, y se supone que ya no tiene que haber 
+    if (stock == 1) {
         curso.querySelector('.stocks').textContent = `AGOTADO`
         
     }
     else{
-        //en mi caso seria concierto 
-        //${para usar variables dentro de string }
-        //le resto a la entradas disponibles 
+        //cada vez que presione el boton comprar se va a restar el stock 
         curso.querySelector('.stocks').textContent = `entradas: ${stock-1}`
-        // del array obtengo el stock 
         conciertos[infoCurso.id-1].stock = conciertos[infoCurso.id-1].stock-1
-
-
-
-    //fijarse si existe ya en el carrito 
-    // se va aiterando con el map, hasta que econtremos uno duplicado 
-    const existe = articulosCarrito.some(curso => curso.id=== infoCurso.id);
+//fijarse si existe ya en el carrito comparando el id ,  luego se va iterando con el map, hasta que econtremos uno duplicado 
+    const existe = articulosCarrito.some(curso => curso.id == infoCurso.id);
+    //si el id del curso comprado coincide con que el que esta en el carrito de compras , suma la cantidad
     if (existe){
-        //actualizamos la cantidad, cuando lo encuentro le indremento la cantidad 
-        const cursos=articulosCarrito.map(curso=> {
-            if(curso.id===infoCurso.id){
+        const cursos = articulosCarrito.map(curso=> {
+            if(curso.id == infoCurso.id){
                 curso.cantidad++;
                 return curso;
 
             }
-            //retorna los objetos que no son duplicados 
             else{
                 return curso;
             }
         })
+        //desesctructura el arreglo en ambos casos , agrega el objeto al carrito 
         articulosCarrito=[...cursos]
     }
     else{
-        //si es diferente va al nievo array 
-        //agregamos curso al carrito, ya que no estaba
-         //spreed operator. 
         articulosCarrito=[...articulosCarrito,infoCurso]
     }
-    //debe modificar la cantidad, si alguno es igual al que estamos tratando de agrerar se mdofica la cantidad 
-    //agrega elementos al carrito, el objeto 
    
     carritoHTML()
 }};
-
-
-
-
-//agregar este objeto al array 
-
-
-//poner los eventos 
+//para que sea más ordenado , se hizo una función en donde van a estar todos los eventos adicionados 
 cargarEventos()
 function cargarEventos(){
     //agregar un curso presionando agregar 
     listaCursos.addEventListener('click', agregarCurso)
     //elimina cursos del carrito 
-
     carrito.addEventListener('click',actualizaCantidad)
-    //vaciar carrito 
+    //vaciar carrito (limpia de la base de datos ,y visualmente del html)
     vaciarCarrito.addEventListener('click',() =>{
-        //borrar el array y limpiar el html 
+        
         articulosCarrito = [];
         limpiarHTML();
+        
     });
+    //muestra las cards en el html 
     document.addEventListener('DOMContentLoaded',() => {
         mostrarConciertos()
-    });
-    buscador.addEventListener('keypress', (e) =>{
-    if (e.target.matches('#miSearch')) {
-        document.querySelectorAll('.card').forEach(concierto =>{
-            if(concierto.textContent.toLowerCase().includes(e.target.value.toLowerCase())){
-                concierto.classList.remove('filtro')
-            }
-            else{
-                concierto.classList.add('filtro')
-            }
-
-        });
-    };
     });
    
 }
@@ -121,9 +81,8 @@ function cargarEventos(){
 function carritoHTML(){
     limpiarHTML()
     articulosCarrito.forEach(curso =>{
-        //desestructuraccion del objeto para que quede mejor, "mas cheto" segun ruben 
+        //desestructuraccion del objeto y crear el carrito de compras html 
         const{titulo,imagen,precio,cantidad,id}=curso; 
-        //crear el tr 
         const row= document.createElement('tr');
         row.innerHTML=`
         <td><img src='${imagen}'heigth=100px width=150px> </td>
@@ -133,89 +92,65 @@ function carritoHTML(){
         <td><a class ="decrementa-cantidad" data-id=${id}> - </a></td>
         <td><a class ="incrementa-cantidad" data-id=${id}> + </a></td>
         <td> <a href ="#" class ="borrar-curso" data-id="${id}" > X </a></td>
-
         `;
-        //eliminar el archivo del array, y del html 
-        //al hacer un click borro el tbody, hacer una funcion 
-        //contenedor carrito abre un hijo, es el que cree ahi 
-        //antes de agregarlo hay que vaciar el html previo. 
         contenedorCarrito.appendChild(row);
     })
 }
 function limpiarHTML(){
-    //forma lenta
-//contenedorCarrito.innerHTML='';
 while(contenedorCarrito.firstChild){
     contenedorCarrito.removeChild(contenedorCarrito.firstChild)
 }
 }
 //funcion eliminar
 function actualizaCantidad(e) {
-
-    //la clase de la x 
+    // boton eliminar , si contiene esa clase hace un filtro con todos los curso.id diferentes a cursoId 
     if(e.target.classList.contains('borrar-curso')){
-
-        //obtener el id del curso que quiero eliminar
-        const cursoId=e.target.getAttribute('data-id')
-        //elimina el array 
-        //filter: genera un nuevo array, cada item es un curso.
-        articulosCarrito=articulosCarrito.filter(curso=>curso.id !== cursoId)
-       carritoHTML()//iterar sobre el carrito y mostrar el html 
-
+        const cursoId = e.target.getAttribute('data-id')
+        articulosCarrito.forEach(articulo=>{ 
+            if (cursoId == articulo.id) {
+                articulosCarrito = articulosCarrito.filter(articulo=>articulo.id !== cursoId)
+                const stock = conciertos[articulo.id-1].stock
+                listaCursos.querySelector(`#stock-${articulo.id}`).innerHTML = `entradas: ${stock+articulo.cantidad}`
+                conciertos[articulo.id-1].stock = stock + articulo.cantidad
+                carritoHTML()// elimina el curso del carrito 
+            }
+        })
     }
-    //si tiene esa clase entra al if 
+    //boton mas , si el id del concierto comprado coindice con el id del articulo que esta en el carrito previamene , le va a sumar la cantidad 
     if (e.target.classList.contains('incrementa-cantidad')){
-        //obtener el id del boton 
-        const sumaId=e.target.getAttribute('data-id');
-        //recorrer el array 
-       articulosCarrito.forEach(articulo =>{
-
-           // toma el stock actual
+        const sumaId = e.target.getAttribute('data-id');
+         articulosCarrito.forEach(articulo =>{
+            //selecciono el stock actual 
            const stock = conciertos[articulo.id-1].stock
-           // le cambia el text content y dice que no hay mas entradas 
            if (stock < 1) {
                listaCursos.querySelector(`#stock-${articulo.id}`).innerHTML = `AGOTADO`
             } else {
-                //condicion donde si el id es igual suma la cantidad 
                 if (sumaId === articulo.id) {
                     articulo.cantidad++;
                     carritoHTML(); 
-                    
-                    //modifico del dom 
                     listaCursos.querySelector(`#stock-${articulo.id}`).innerHTML = `entradas: ${stock-1}`
-                    //modifico de la bse de datos 
                     conciertos[articulo.id-1].stock = stock-1
-                }
-                
+                }   
             }
        })
     }
-    //si contiene esa clase entra al if 
+   //boton menos
     if (e.target.classList.contains('decrementa-cantidad')){ 
-
-        //obtengo el id del boton 
-        const restaId=e.target.getAttribute('data-id');
-         //recorrer el array con un for each 
-         //si el producto seleccionado tiene el mismo id que el que el quiero decrementar, lo va a decrementar 
+        // cada vez que se agrega el curso al carrito va a tener un id, si el id del carrito coincide con el id de la card , lo va a decrementar y mostrar en el html la cantidad de stock que hay  
+    const restaId = e.target.getAttribute('data-id'); 
         articulosCarrito.forEach(articulo =>{
             if (restaId === articulo.id) {
-                //primero me fijo la CANTIDAD 
+                //Si la cantidad es 1 al presionar nuevamente el boton menos , se crea un nuevo array filtrando todos los productos que tengan un id distino a restaId
                 if (articulo.cantidad == 1) {
-                        articulosCarrito=articulosCarrito.filter(articulo=>restaId !==  articulo.id )
-                        carritoHTML()
-                        //le restas en los dos casos 
+                        articulosCarrito = articulosCarrito.filter(articulo=>restaId !==  articulo.id )
+                       // carritoHTML()
                     } else {
                         articulo.cantidad--
-                        carritoHTML()
+                        //carritoHTML()
                 }
-                //selecciono de la lista de cursos el id 
-                //modificar el textcontent y la base de datos 
-                //si es  menor que 1 va a borrar el html 
-                // toma el stock actual
+                //selecciono de la base de datos el id del concierto menos 1 , ya que se selecciona por el indice , como es un array , el indice empieza en 0 
                 const stock = conciertos[articulo.id-1].stock
-                //modifico del dom 
                 listaCursos.querySelector(`#stock-${articulo.id}`).innerHTML = `entradas: ${stock+1}`
-                //modifico de la bse de datos 
                 conciertos[articulo.id-1].stock = stock+1
             } 
 

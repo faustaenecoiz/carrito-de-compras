@@ -1,5 +1,4 @@
-
-//crear el array 
+//base de datos  
 const conciertos = [
     {
         titulo : "Lana del Rey",
