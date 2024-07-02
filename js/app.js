@@ -33,12 +33,12 @@ const LeerDatos = (curso) =>{
         //cada vez que presione el boton comprar se va a restar el stock 
         curso.querySelector('.stocks').textContent = `entradas: ${stock-1}`
         conciertos[infoCurso.id-1].stock = conciertos[infoCurso.id-1].stock-1
-//fijarse si existe ya en el carrito comparando el id ,  luego se va iterando con el map, hasta que econtremos uno duplicado 
-    const existe = articulosCarrito.some(curso => curso.id == infoCurso.id);
-    //si el id del curso comprado coincide con que el que esta en el carrito de compras , suma la cantidad
-    if (existe){
-        const cursos = articulosCarrito.map(curso=> {
-            if(curso.id == infoCurso.id){
+         //fijarse si existe ya en el carrito comparando el id ,  luego se va iterando con el map, hasta que econtremos uno duplicado 
+        const existe = articulosCarrito.some(curso => curso.id == infoCurso.id);
+         //si el id del curso comprado coincide con que el que esta en el carrito de compras , suma la cantidad
+         if (existe){
+            const cursos = articulosCarrito.map(curso=> {
+              if(curso.id == infoCurso.id){
                 curso.cantidad++;
                 return curso;
 
@@ -65,15 +65,12 @@ function cargarEventos(){
     carrito.addEventListener('click',actualizaCantidad)
     //vaciar carrito (limpia de la base de datos ,y visualmente del html)
     vaciarCarrito.addEventListener('click',() =>{
-        
         articulosCarrito = [];
         limpiarHTML();
+        //modificarStock();
         
     });
-    //muestra las cards en el html 
-    document.addEventListener('DOMContentLoaded',() => {
-        mostrarConciertos()
-    });
+
    
 }
 //muestra el carrito de compras en el html 
@@ -89,23 +86,33 @@ function carritoHTML(){
         <td class='blanco'>${titulo}</td>
         <td class='blanco'>${precio}</td>
         <td class='blanco'>${cantidad}</td>
-        <td><a class ="decrementa-cantidad" data-id=${id}> - </a></td>
-        <td><a class ="incrementa-cantidad" data-id=${id}> + </a></td>
-        <td> <a href ="#" class ="borrar-curso" data-id="${id}" > X </a></td>
+        <td><a class ="decrementa-cantidad" data-id = ${id}>- </a></td>
+        <td><a class ="incrementa-cantidad" data-id = ${id}> + </a></td>
+        <td> <a href ="#" class ="borrar-curso" data-id = ${id} > X </a></td>
         `;
         contenedorCarrito.appendChild(row);
     })
 }
 function limpiarHTML(){
 while(contenedorCarrito.firstChild){
-    contenedorCarrito.removeChild(contenedorCarrito.firstChild)
-}
-}
+contenedorCarrito.removeChild(contenedorCarrito.firstChild);
+}}
+/*
+function modificarStock(articulo) {
+            //const stock = conciertos[articulo.id-1].stock
+            //listaCursos.querySelector(`#stock-${articulo.id}`).innerHTML = `entradas: ${stock+articulo.cantidad}`
+            //conciertos[articulo.id-1].stock = stock + articulo.cantidad
+}*/
+
+
+
+
 //funcion eliminar
 function actualizaCantidad(e) {
     // boton eliminar , si contiene esa clase hace un filtro con todos los curso.id diferentes a cursoId 
     if(e.target.classList.contains('borrar-curso')){
         const cursoId = e.target.getAttribute('data-id')
+        e.preventDefault()
         articulosCarrito.forEach(articulo=>{ 
             if (cursoId == articulo.id) {
                 articulosCarrito = articulosCarrito.filter(articulo=>articulo.id !== cursoId)
@@ -163,7 +170,7 @@ function crearRow() {
     row.classList = 'row'
     listaCursos.appendChild(row)
 
-}
+};
 function crearCard (concierto){
     //desestructura un objeto y en base a eso crea los elementos
     const {titulo, precio, lugar , oferta , imagen, id , stock} = concierto;
@@ -180,7 +187,7 @@ function crearCard (concierto){
 
  
     contendorCard.classList = 'four columns';
-    cardHTML.classList = ('card');
+    cardHTML.classList = 'card';
     cardHTML.id = id
     infoCard.classList = 'info-card';
     precioHTML.classList = 'precio';
@@ -189,7 +196,7 @@ function crearCard (concierto){
     imagenHTML.src = imagen;
     imagenHTML.classList = 'imagen-curso u-full-width';
     tituloHTML.textContent = titulo;
-    precioHTML.textContent = precio;
+    precioHTML.textContent =precio;
     lugarHTML.textContent = lugar;
     ofertaHTML.textContent = oferta;
     ofertaHTML.classList = 'u-pull-right'
@@ -197,6 +204,11 @@ function crearCard (concierto){
     linkHTML.textContent = "Comprar";
     linkHTML.setAttribute('data-id' , id);
     stockHTML.textContent = `entradas ${stock}`;
+
+    
+    
+
+
 
 
     precioHTML.appendChild(ofertaHTML);
@@ -211,9 +223,10 @@ function crearCard (concierto){
     return(contendorCard);
 }
 // cantidad de cards adentro del row 
-let cardImpresa =  3
-function mostrarConciertos() {
-    conciertos.forEach(concierto => {
+
+function mostrarConciertos(listaDeConciertos) {
+    let cardImpresa =  3
+    listaDeConciertos.forEach(concierto => {
        if (cardImpresa == 3 ) {
         crearRow()
         // le agrega al contenedor de las cards la card que previamente se hizo al llamar la funcion 
@@ -228,4 +241,3 @@ function mostrarConciertos() {
     })
    
 }
-

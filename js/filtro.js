@@ -1,3 +1,4 @@
+//muestra las cards en el html 
 document.addEventListener('DOMContentLoaded', () =>{
 buscarConciertos()
 })
@@ -6,19 +7,18 @@ const busqueda = document.getElementById('Search');
 
 function buscarConciertos() {
     busqueda.addEventListener("input", e =>{
-        limpiarFiltro()
+        limpiarFiltrado()
         const inputText = e.target.value.toLowerCase().trim();
+        //filtrar por el titulo 
         const mostrarFiltro = conciertos.filter(concierto => concierto.titulo.toLowerCase().startsWith(inputText));
+        //como las cards ya estan creadas desde app.js la vuelvo a llamar aca 
        mostrarConciertos(mostrarFiltro)
+
     })
 };
+mostrarConciertos(conciertos)
 
-
-function limpiarFiltro(){
-while(listaCursos.firstChild){
-    listaCursos.removeChild(listaCursos.firstChild)
+function limpiarFiltrado (){
+    while(listaCursos.firstChild)
+        listaCursos.removeChild(listaCursos.firstChild)
 }
-}
-
-//el problema que tengo es que borra solo el titulo conciertos 
-//trim metodo que elimina los espacios en blanco 

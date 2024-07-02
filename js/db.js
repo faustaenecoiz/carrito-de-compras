@@ -91,7 +91,7 @@ const conciertos = [
         stock : 67
     },
     {
-        titulo : " Dillom",
+        titulo : "Dillom",
         precio : '$3000',
         lugar : "Campo 7",
         oferta : 1000,
@@ -100,7 +100,7 @@ const conciertos = [
         stock : 200
     },
     {
-        titulo : " A$ap Rocky",
+        titulo : "A$ap Rocky",
         precio : '$2500',
         lugar : "Campo 3 ",
         oferta : 900,
